@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogIn</title>
+</head>
+<body>
+    <h2>Sign-In</h2>
+    <br>
+    <h3 id="res"></h3>
+    <br>
+    <form id="myform1">
+        <label for="name">Enter your Name:</label>
+        <br>
+        <input type="text" name="name" id="name" placeholder="Username..." required>
+        <br><br>
+        <label for="phn">Enter your Phn-Number:</label>
+        <br>
+        <input type="text" name="phn" id="phn" placeholder="Phone..." required>
+        <br>
+        <button type="submit" id="submit">Send OTP</button>
+    </form>
+    <br><br><br><br>
+    <form id="myform2">
+        <label for="otp">Enter OTP:</label>
+        <input type="text" name="otp" id="otp" placeholder="OTP..." required>
+        <br>
+        <button type="submit" id="verify">Verify</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const form1 = document.getElementById('myform1');
+    const form2 = document.getElementById('myform2');
+    const res = document.getElementById("res");
+
+    form1.addEventListener('submit', async (event) => {
+        event.preventDefault(); // Prevent the default form submission
+
+        const formData = new FormData(event.target);
+
+        try {
+            const response = await fetch("http://localhost:8000/send-sms/", {
+                method: "POST",
+                body: formData
+            });
+
+            if (!response.ok) {
+                res.innerHTML = result.status+"<br>"+result.det;
+                throw new Error('Network response was not ok');
+            }
+
+            const result = await response.json(); // or response.text() if not JSON
+            res.innerHTML = result.status+"<br>"+result.det;
+            console.log('Success:', result);
+            // Optional: Handle success (e.g., show a success message)
+
+        } catch (error) {
+            res.innerHTML = result.status+"<br>"+result.det;
+            console.error('Error:', error);
+            // Optional: Handle error (e.g., show an error message)
+        }
+    });
+
+    form2.addEventListener('submit', async (event) => {
+        event.preventDefault(); // Prevent the default form submission
+
+        const formData = new FormData(event.target);
+
+        try {
+            const response = await fetch("http://localhost:8000/verify-otp/", {
+                method: "POST",
+                body: formData
+            });
+
+            if (!response.ok) {
+                res.innerHTML = result.status+"<br>"+result.det;
+                throw new Error('Network response was not ok');
+            }
+
+            const result = await response.json(); // or response.text() if not JSON
+            res.innerHTML = result.status+"<br>"+result.det;
+            console.log('Success:', result);
+            // Optional: Handle success (e.g., show a success message)
+
+        } catch (error) {
+            res.innerHTML = result.status+"<br>"+result.det;
+            console.error('Error:', error);
+            // Optional: Handle error (e.g., show an error message)
+        }
+    });
+});
+    </script>
+
+</body>
+</html>
