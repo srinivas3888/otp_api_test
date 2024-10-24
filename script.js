@@ -13,19 +13,20 @@ socket.on('connect', (soc)=>{
 
 socket.on('msg', (msg)=>{
     const p = document.createElement('p');
-    p.innerText = msg;
+    msg=msg.json();
+    p.innerText = msg.msg;
     msgs.appendChild(p);
 })
 
 form.addEventListener('submit', (e)=>{
     e.preventDefault();
+    const formData = {
+        "msg":form.value
+    };
+    formData = JSON.stringify(formData);
     const p = document.createElement('p');
     p.innerText = form.value;
     msgs.appendChild(p);
-
-    const f={
-        "msg":form.value
-        };
     
-    socket.emit('msg', JSON.Stringify(f));
+    socket.emit('msg', formData);
 })
