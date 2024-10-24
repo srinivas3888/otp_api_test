@@ -22,6 +22,10 @@ form.addEventListener('submit', (e)=>{
     const p = document.createElement('p');
     p.innerText = form.value;
     msgs.appendChild(p);
+
+    const f={
+        "msg":form.value
+        };
     
-    socket.emit('msg', JSON.Stringify(form.value));
+    socket.emit('msg', JSON.Stringify(f));
 })
