@@ -6,13 +6,13 @@ const msgs = document.getElementById('msgs');
 const form = document.getElementById('form');
 
 socket.on('connect', (soc)=>{
-    const p = document.createElement('h3');
+    let p = document.createElement('h3');
     p.innerText = `Joined with id: ${soc.id}`;
     msgs.appendChild(p);
 })
 
 socket.on('msg', (msg)=>{
-    const p = document.createElement('p');
+    let p = document.createElement('p');
     msg=msg.json();
     p.innerText = msg.msg;
     msgs.appendChild(p);
@@ -24,7 +24,7 @@ form.addEventListener('submit', (e)=>{
         "msg":form.value
     };
     formData = JSON.stringify(formData);
-    const p = document.createElement('p');
+    let p = document.createElement('p');
     p.innerText = form.value;
     msgs.appendChild(p);
     
