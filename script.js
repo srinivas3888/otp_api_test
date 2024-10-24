@@ -20,7 +20,7 @@ socket.on('msg', (msg)=>{
 
 form.addEventListener('submit', (e)=>{
     e.preventDefault();
-    const formData = {
+    let formData = {
         "msg":form.value
     };
     formData = JSON.stringify(formData);
