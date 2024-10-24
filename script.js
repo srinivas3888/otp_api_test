@@ -23,5 +23,5 @@ form.addEventListener('submit', (e)=>{
     p.innerText = form.value;
     msgs.appendChild(p);
     
-    socket.emit('msg', form.value);
+    socket.emit('msg', JSON.Stringify(form.value));
 })
